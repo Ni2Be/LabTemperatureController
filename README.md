@@ -1,1 +1,1 @@
-# LabtTemperatureController
+# LabTemperatureController

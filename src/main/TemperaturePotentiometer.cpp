@@ -1,0 +1,27 @@
+#include "TemperaturePotentiometer.hpp"
+
+#include <Arduino.h>
+
+TemperaturePotentiometer::TemperaturePotentiometer(int pin)
+    : pin(pin)
+{
+}
+
+void TemperaturePotentiometer::setup()
+{
+    pinMode(this->pin, OUTPUT);
+}
+
+int TemperaturePotentiometer::getTargetTempC()
+{
+    int sensorValue = analogRead(this->pin);
+    int mappedValue = map(sensorValue, 0, 1023, 0, 400);
+
+    // Update the last stable value if the change is outside the deadzone
+    if (abs(mappedValue - lastStableValue) > deadzone) {
+        lastStableValue = mappedValue;
+    }
+
+    Serial.println(lastStableValue);
+    return lastStableValue;
+}

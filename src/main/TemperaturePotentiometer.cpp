@@ -9,7 +9,7 @@ TemperaturePotentiometer::TemperaturePotentiometer(int pin)
 
 void TemperaturePotentiometer::setup()
 {
-    pinMode(this->pin, OUTPUT);
+    pinMode(this->pin, INPUT);
 }
 
 int TemperaturePotentiometer::getTargetTempC()
@@ -18,10 +18,9 @@ int TemperaturePotentiometer::getTargetTempC()
     int mappedValue = map(sensorValue, 0, 1023, 0, 400);
 
     // Update the last stable value if the change is outside the deadzone
-    if (abs(mappedValue - lastStableValue) > deadzone) {
-        lastStableValue = mappedValue;
+    if (abs(mappedValue - this->lastStableValue) > this->deadzone) {
+        this->lastStableValue = mappedValue;
     }
 
-    Serial.println(lastStableValue);
-    return lastStableValue;
+    return this->lastStableValue;
 }

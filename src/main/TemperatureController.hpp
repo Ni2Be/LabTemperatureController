@@ -11,16 +11,16 @@ class TemperatureController
         void setup();
         void controlTemperature();
         
-        static constexpr int RELAY_PIN = 2;
+        static constexpr int RELAY_PIN = 3;
         static constexpr int SENSOR_PIN = A6;
-        static constexpr int POTENTIOMETER_PIN = A1;
+        static constexpr int POTENTIOMETER_PIN = A0;
 
     private:
         TemperatureDisplay display;
         TemperatureSensor sensor;
         TemperaturePotentiometer potentiometer;
 
-        void heaterControl(int temp, int targetTemp);
+        bool heaterControl(int temp, int targetTemp);
 };
 
 #endif

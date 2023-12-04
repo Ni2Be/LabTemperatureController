@@ -25,11 +25,16 @@ void TemperatureDisplay::setup() {
   display.display(); 
 }
 
-void TemperatureDisplay::displayTemperature(double temperature, double targetTemp) {
+void TemperatureDisplay::displayTemperature(double temperature, double targetTemp, bool isHeating) {
   display.clearDisplay();
   display.setTextSize(1);
   display.setTextColor(WHITE);
   display.setCursor(0, 10);
   display.println(String(temperature) + "C / " + String(targetTemp) + "C");
+
+  display.setCursor(0, 20);
+  if(isHeating)
+    display.println("Heating");
+
   display.display(); 
 }

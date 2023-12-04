@@ -21,21 +21,23 @@ void TemperatureController::controlTemperature()
     double temp = this->sensor.readTempC();
     int roundedTemp = round(temp);
     int targetTemp = this->potentiometer.getTargetTempC();
-    this->heaterControl(roundedTemp, targetTemp);
-
-    this->display.displayTemperature(roundedTemp, targetTemp);
+    
+    bool isHeating = this->heaterControl(roundedTemp, targetTemp);
+    this->display.displayTemperature(roundedTemp, targetTemp, isHeating);
 }
 
-void TemperatureController::heaterControl(int temp, int targetTemp)
+bool TemperatureController::heaterControl(int temp, int targetTemp)
 {
     if (temp < targetTemp)
     {
         // Temperature is below target, turn on the heater
-        digitalWrite(TemperatureController::RELAY_PIN, LOW);
+        digitalWrite(TemperatureController::RELAY_PIN, HIGH);
+        return true;
     }
     else
     {
         // Temperature has reached or exceeded target, turn off the heater
-        digitalWrite(TemperatureController::RELAY_PIN, HIGH);
+        digitalWrite(TemperatureController::RELAY_PIN, LOW);
+        return false;
     }
 }

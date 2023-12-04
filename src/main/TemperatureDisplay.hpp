@@ -13,7 +13,7 @@ class TemperatureDisplay
 
         TemperatureDisplay();
         void setup();
-        void displayTemperature(double temperature, double targetTemp);
+        void displayTemperature(double temperature, double targetTemp, bool isHeating);
 };
 
 #endif
